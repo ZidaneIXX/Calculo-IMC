@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calculador de IMC</title>
+    <style>
+        body {
+            background-color: blueviolet;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+
+        <h1>Calculador de IMC</h1>
+
+        <p>Iremos calcular sua IMC de acordo com suas caracteristicas.</p>
+        Sexo
+        <br>
+        <br>
+        <button>Homem</button> <button>Mulher</button>
+        <br>
+        <br>
+        <br>
+        Peso <input v-model="weight">
+        <br>
+        <br>
+        Altura <input v-model="height">
+        <br>
+        <br>
+        Atividade Física
+        <br>
+        <br>
+        <button>Sedentária</button> <button>Moderada</button> <button>Intensa</button>
+        <br>
+        <br>
+        <br>
+        <button v-on:click="calculo_de_IMC(height,weight)">Calcular</button>
+        <br>
+        <p v-if="IMC != ''">Seu resultado foi: {{situacao_de_IMC}}</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                height: '',
+                weight: '',
+                IMC: ''
+            },
+            methods: {
+            
+                calculo_de_IMC(height, weight) {
+                    this.IMC = ''
+                    if (height == 0) {
+                        return 
+                    } 
+                    this.IMC = parseInt (weight / (height * height))
+
+                }
+
+            },
+            computed:{
+                situacao_de_IMC() {
+                    console.log(this.IMC)
+                    if (this.IMC < 16) {
+                        return "Subpeso Severo"
+
+                    }
+                    else if (this.IMC >= 16 && this.IMC <= 19.9) {
+                        return "Subpeso"
+                    }
+                    else if (this.IMC >= 20 && this.IMC <= 24.9) {
+                        return "Normal"
+                    }
+                    else if (this.IMC >= 25 && this.IMC <= 29.9) {
+                        return "Sobrepeso"
+                    }
+                    else if (this.IMC >= 30 && this.IMC <= 39.9) {
+                        return "Obeso"
+                    }
+                    else {
+                        return "Obeso Mórbido"
+                    }
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
